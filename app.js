@@ -1,11 +1,13 @@
+let list = JSON.parse(localStorage.getItem('cities')) || []
 
-  
+
 document.getElementById('search-btn').addEventListener('click', event => {
   event.preventDefault()
 
   let newCity = document.createElement('li')
   newCity.className = 'list-group-item'
   newCity.textContent = document.getElementById('search').value
+  localStorage.setItem('cities', JSON.stringify(document.getElementById('search').value))
   document.getElementById('city-list').append(newCity)
 
   weatherOutput()
@@ -13,6 +15,15 @@ document.getElementById('search-btn').addEventListener('click', event => {
 
   document.getElementById('search').value = ''
 })
+
+document.addEventListener('click', event => {
+  if(event.target.classList.contains('list-group-item')) {
+    
+    weatherOutput()
+    forecast()
+  }
+})
+
 
 // Display current weather
 var weatherOutput = () => {
@@ -67,20 +78,43 @@ var forecast = () => {
           console.log(element)
           let day = [moment(moment().utcOffset(1440)).format('l'), moment(moment().utcOffset(2880)).format('l'), moment(moment().utcOffset(4320)).format('l'), moment(moment().utcOffset(5760)).format('l'), moment(moment().utcOffset(7200)).format('l')]
           
-          for(let i=0; i<4; i++) {
-            document.getElementById('forecast').innerHTML = `
-              <div class="col fiveDay">
-              <p>${day[i]}</p>
-              <img src="http://openweathermap.org/img/wn/${element[i].weather[0].icon}.png" alt="weather icon">
-              <p>Temp: ${element[i].temp.day} F</p>
-              <p>Humidity: ${element[i].humidity}%</p>
-            `
-          }
+          let forecastElem = document.getElementById('forecast')
+          forecastElem.innerHTML = `
+          <div class="col fiveDay">
+            <p>${day[0]}</p>
+            <img src="http://openweathermap.org/img/wn/${element[0].weather[0].icon}.png">
+            <p>Temp: ${element[0].temp.day} F</p>
+            <p>Humidity: ${element[0].humidity}%</p>
+          </div>
+          <div class="col fiveDay">
+            <p>${day[1]}</p>
+            <img src="http://openweathermap.org/img/wn/${element[1].weather[0].icon}.png">
+            <p>Temp: ${ element[1].temp.day} F</p>
+            <p>Humidity: ${element[1].humidity}%</p>
+          </div>
+          <div class="col fiveDay">
+            <p>${day[2]}</p>
+            <img src="http://openweathermap.org/img/wn/${element[2].weather[0].icon}.png">
+            <p>Temp: ${ element[2].temp.day} F</p>
+            <p>Humidity: ${element[2].humidity}%</p>
+          </div>
+          <div class="col fiveDay">
+            <p>${day[3]}</p>
+            <img src="http://openweathermap.org/img/wn/${element[3].weather[0].icon}.png">
+            <p>Temp: ${ element[3].temp.day} F</p>
+            <p>Humidity: ${element[3].humidity}%</p>
+          </div>
+          <div class="col fiveDay">
+            <p>${day[4]}</p>
+            <img src="http://openweathermap.org/img/wn/${element[4].weather[0].icon}.png">
+            <p>Temp: ${ element[4].temp.day} F</p>
+            <p>Humidity: ${element[4].humidity}%</p>
+          </div>
+          `
         })
     })
     .catch(err => console.error(err))
-
-
-
-
 }
+
+
+var cities = localStorage.setItem('cities', JSON.stringify(document.getElementById('search').value))
