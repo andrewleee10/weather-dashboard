@@ -1,0 +1,33 @@
+.main-heading {
+  display: block;
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+}
+
+#current-weather {
+  border: 1px solid;
+  margin: 2px;
+}
+
+.list-group {
+  margin-top: 3px;
+}
+
+.green {
+  color: green;
+}
+
+.orange {
+  color: orange;
+}
+
+.red {
+  color: red;
+}
+
+.fiveDay {
+  background-color: #007bff;
+  color: white;
+}
